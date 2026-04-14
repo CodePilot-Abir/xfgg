@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Sumaiya ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a0b12 0%, #3a0d1e 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* Floating Hearts Background */
+        .heart-bg {
+            position: absolute;
+            top: -10vh;
+            color: #ff4d6d;
+            font-size: 24px;
+            opacity: 0.6;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
+            border: 1px solid rgba(255, 77, 109, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            max-width: 90%;
+            width: 500px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            color: #ff4d6d;
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #ffb3c6;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .question {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: #fff;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            height: 60px;
+        }
+
+        button {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 12px 40px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #yesBtn {
+            background: linear-gradient(45deg, #ff4d6d, #ff758f);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            z-index: 20;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.6);
+        }
+
+        #noBtn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffb3c6;
+            border: 1px solid #ff4d6d;
+            position: relative;
+            z-index: 20;
+        }
+
+        /* Success Screen Styling */
+        .success-message {
+            display: none;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .success-img {
+            width: 150px;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="background-hearts"></div>
+
+    <div class="container" id="proposal-box">
+        <h1>Sumaiya,</h1>
+        <p>From the moment you walked into my life, everything changed. You are my greatest adventure and my safest place.</p>
+        <div class="question">Will you marry me?</div>
+        
+        <div class="btn-container">
+            <button id="yesBtn" onclick="acceptProposal()">YES</button>
+            <button id="noBtn" onmouseover="dodgeBtn()" onclick="dodgeBtn()">NO</button>
+        </div>
+    </div>
+
+    <div class="container success-message" id="success-box">
+        <h1 style="font-size: 3.5rem;">She said YES! 🎉</h1>
+        <p style="font-size: 1.5rem; color: white;">I love you to the moon and back, Sumaiya!</p>
+        <p style="font-size: 1.2rem; color: #ffb3c6; margin-top: 20px; font-style: italic;">Yours forever, <br>Abir ❤️</p>
+    </div>
+
+    <script>
+        // Make the NO button dodge the mouse
+        function dodgeBtn() {
+            const btn = document.getElementById('noBtn');
+            btn.style.position = 'fixed';
+            
+            // Calculate safe boundaries so the button stays on screen
+            const maxX = window.innerWidth - btn.offsetWidth - 20;
+            const maxY = window.innerHeight - btn.offsetHeight - 20;
+            
+            const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+        }
+
+        // Show success screen and trigger more hearts
+        function acceptProposal() {
+            document.getElementById('proposal-box').style.display = 'none';
+            document.getElementById('success-box').style.display = 'block';
+            createExplosion();
+        }
+
+        // Background animated hearts generator
+        function createBackgroundHearts() {
+            const container = document.getElementById('background-hearts');
+            const heartsCount = 25;
+
+            for(let i = 0; i < heartsCount; i++) {
+                let heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.className = 'heart-bg';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        // Extra fast hearts when she clicks YES
+        function createExplosion() {
+            const container = document.getElementById('background-hearts');
+            for(let i = 0; i < 50; i++) {
+                let heart = document.createElement('div');
+                heart.innerHTML = '💖';
+                heart.className = 'heart-bg';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                heart.style.fontSize = (Math.random() * 30 + 15) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        // Start background animation on load
+        window.onload = createBackgroundHearts;
+    </script>
+</body>
+</html>
